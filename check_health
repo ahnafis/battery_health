@@ -1,0 +1,25 @@
+#!/bin/python
+charge_full = 0
+charge_full_design = 0
+
+path = "/sys/class/power_supply/battery"
+
+try:
+    with open(f"{path}/charge_full") as buffer:
+        data = buffer.read().strip()
+        charge_full = int(data)
+
+    with open(f"{path}/charge_full_design") as buffer:
+        data = buffer.read().strip()
+        charge_full_design = int(data)
+
+except FileNotFoundError:
+    print("Root access required!")
+    exit(1)
+
+health = 0
+
+if charge_full_design > 0:
+    health = (charge_full / charge_full_design) * 100
+
+print(f"Battery health: {health}%")
