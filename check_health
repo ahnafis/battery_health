@@ -21,5 +21,6 @@ health = 0
 
 if charge_full_design > 0:
     health = (charge_full / charge_full_design) * 100
+    health = int(health)
 
 print(f"Battery health: {health}%")
